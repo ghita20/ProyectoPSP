@@ -1,0 +1,26 @@
+
+Jugadores.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+rey
+  rotate: false
+  xy: 1, 69
+  size: 736, 32
+  orig: 736, 32
+  offset: 0, 0
+  index: -1
+serpiente
+  rotate: false
+  xy: 1, 35
+  size: 736, 32
+  orig: 736, 32
+  offset: 0, 0
+  index: -1
+trebol
+  rotate: false
+  xy: 1, 1
+  size: 736, 32
+  orig: 736, 32
+  offset: 0, 0
+  index: -1

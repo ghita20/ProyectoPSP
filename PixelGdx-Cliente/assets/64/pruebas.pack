@@ -1,0 +1,26 @@
+
+pruebas.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+jugador
+  rotate: false
+  xy: 1, 133
+  size: 700, 64
+  orig: 700, 64
+  offset: 0, 0
+  index: -1
+onda
+  rotate: false
+  xy: 1, 67
+  size: 700, 64
+  orig: 700, 64
+  offset: 0, 0
+  index: -1
+serpiente
+  rotate: false
+  xy: 1, 1
+  size: 700, 64
+  orig: 700, 64
+  offset: 0, 0
+  index: -1
