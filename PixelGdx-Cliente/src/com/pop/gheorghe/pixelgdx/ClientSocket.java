@@ -8,6 +8,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.Scanner;
 
@@ -30,7 +31,9 @@ public class ClientSocket implements KeyListener{
     	p.x = 3.0f;
     	System.out.println(" P: " +p.x);
     	
-        this.socket = new Socket("10.2.23.1", 65000);
+        this.socket = new Socket();
+        socket.connect(new InetSocketAddress("10.2.23.1", 65000), 500000);
+        socket.setSoTimeout(500000);
         this.scanner = new Scanner(System.in);
         
         System.out.println("\r\nConnected to: " + socket.getInetAddress());
