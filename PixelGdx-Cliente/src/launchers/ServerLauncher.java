@@ -12,7 +12,7 @@ public class ServerLauncher {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.width = PixelGdx.WIDTH;
 		config.height = PixelGdx.HEIGHT;
-
+		
 		new LwjglApplication(new PixelGdx(0), config);
 	}
 }

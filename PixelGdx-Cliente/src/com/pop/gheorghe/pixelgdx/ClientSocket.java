@@ -30,7 +30,7 @@ public class ClientSocket implements KeyListener{
     	p.x = 3.0f;
     	System.out.println(" P: " +p.x);
     	
-        this.socket = new Socket("localhost", 50000);
+        this.socket = new Socket("10.2.23.1", 65000);
         this.scanner = new Scanner(System.in);
         
         System.out.println("\r\nConnected to: " + socket.getInetAddress());

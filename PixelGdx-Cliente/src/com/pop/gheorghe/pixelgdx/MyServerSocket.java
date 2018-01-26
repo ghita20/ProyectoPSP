@@ -16,7 +16,7 @@ public class MyServerSocket {
 
 	public MyServerSocket() throws Exception{
 		// TODO Auto-generated constructor stub
-		server = new ServerSocket(50000, 1, InetAddress.getByName("localhost"));
+		server = new ServerSocket(65000, 1, InetAddress.getByName("10.2.23.1"));
 		client = null;
 		
 		listen();
@@ -68,14 +68,14 @@ public class MyServerSocket {
 //				
 //			}
 //		}).start();
-//		try {
-//			client = MyServerSocket.this.server.accept();
-//			String clientAddress = client.getInetAddress().getHostAddress();
-//			System.out.println("\r\nNew connection from " + clientAddress);
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		try {
+			client = MyServerSocket.this.server.accept();
+			String clientAddress = client.getInetAddress().getHostAddress();
+			System.out.println("\r\nNew connection from " + clientAddress);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		
     }

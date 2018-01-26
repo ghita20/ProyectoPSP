@@ -82,7 +82,7 @@ public class JugadorStats {
 				vidas.add( table.add( auxI ).padTop(20) );
 		}
 		
-		// Añade la tabla al stage
+		// Aï¿½ade la tabla al stage
 		stage.addActor(table);
 	}
 	
