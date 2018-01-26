@@ -22,6 +22,8 @@ public class Posicion implements Serializable{
 	public Vector2 posicion;
 	public float angle;
 	
+	public int vidas = -1;
+	
 	public State state;
 	public float stateTime;
 	public boolean direccionDerecha;

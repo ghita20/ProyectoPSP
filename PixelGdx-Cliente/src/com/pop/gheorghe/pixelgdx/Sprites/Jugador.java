@@ -47,9 +47,15 @@ public class Jugador extends Sprite {
     
     public static final float DAMAGE = 20;
     
+    public static final int MAX_VIDA = 12;
+    
     private int vida;
+    
+    private boolean muerto;
+    
+    private String tipoJugador; // para saber que jugador soy
 	
-	public Jugador( PantallaJugar screen , String region , int regionY ) {
+	public Jugador( PantallaJugar screen , String region , int regionY , String tipoJugador ) {
 		// TODO Auto-generated constructor stub  - rey
 		super(screen.geAtlas().findRegion(region));
 		world = screen.getWorld();
@@ -60,6 +66,7 @@ public class Jugador extends Sprite {
 		previousState = State.STANDING;
 		stateTimer = 0;
 		direccionDerecha = true;
+		this.tipoJugador = tipoJugador;
 		
 		Array<TextureRegion> frames = new Array<TextureRegion>();
 		for (int i = 0; i < 4; i++) { // new TextureRegion(getTexture(), i * 32 , 69, 32 ,32)
@@ -90,71 +97,89 @@ public class Jugador extends Sprite {
 		setBounds(0, 0, 34 / PixelGdx.PPM, 34 / PixelGdx.PPM);
 		setRegion(standTexture);
 		
-		vida = 100;
+		// 12 puntos de vida
+		vida = MAX_VIDA;
+		muerto = false;
 		
 	}
 	
 	public int getVida() {
 		return vida;
 	}
+	public void setVidas ( int vidas ) {
+		if ( vidas >= 12 )
+			vida = 12;
+		else
+			vida = vidas;
+		screen.getStats().refrescarStats();
+		
+		if ( vidas == 0)
+			muerto = true;
+	}
 	
 	public void movimientoJugador (  ) {
+		if ( !muerto ) {
+			if (Gdx.input.isKeyJustPressed(Input.Keys.W)  ) { // && jugador.getState() != State.SALTANDO && jugador.getState() != State.CAYENDO
+				saltar();
+			}
+			if (Gdx.input.isKeyJustPressed(Input.Keys.S))
+				b2body.applyLinearImpulse(new Vector2(0, -2.4f), b2body.getWorldCenter(), true);
+			if (Gdx.input.isKeyPressed(Input.Keys.D) && b2body.getLinearVelocity().x <= 1.5f) {
+				float velX = b2body.getLinearVelocity().x;
+				if ( velX < 0 )
+					b2body.setLinearVelocity(0, b2body.getLinearVelocity().y);
+				b2body.applyForceToCenter(new Vector2(3.5f, 0), true);
 
-		if (Gdx.input.isKeyJustPressed(Input.Keys.W)  ) { // && jugador.getState() != State.SALTANDO && jugador.getState() != State.CAYENDO
-			saltar();
-		}
-		if (Gdx.input.isKeyJustPressed(Input.Keys.S))
-			b2body.applyLinearImpulse(new Vector2(0, -2.4f), b2body.getWorldCenter(), true);
-		if (Gdx.input.isKeyPressed(Input.Keys.D) && b2body.getLinearVelocity().x <= 1.5f) {
-			float velX = b2body.getLinearVelocity().x;
-			if ( velX < 0 )
-				b2body.setLinearVelocity(0, b2body.getLinearVelocity().y);
-			b2body.applyForceToCenter(new Vector2(3.5f, 0), true);
-			
-		}
-		if (Gdx.input.isKeyPressed(Input.Keys.A) && b2body.getLinearVelocity().x >= -1.5f) {
-			float velX = b2body.getLinearVelocity().x;
-			if ( velX > 0 )
-				b2body.setLinearVelocity(0, b2body.getLinearVelocity().y);
-			b2body.applyForceToCenter(new Vector2(-3.5f, 0), true);
-		}
-		if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-			//atacar();
-			//System.out.println("Voy a crear en posicion: x: " +b2body.getPosition().x +" y: " +b2body.getPosition().y);
-			
-			screen.crearOndaVital(this);
-		
-		}
+			}
+			if (Gdx.input.isKeyPressed(Input.Keys.A) && b2body.getLinearVelocity().x >= -1.5f) {
+				float velX = b2body.getLinearVelocity().x;
+				if ( velX > 0 )
+					b2body.setLinearVelocity(0, b2body.getLinearVelocity().y);
+				b2body.applyForceToCenter(new Vector2(-3.5f, 0), true);
+			}
+			if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+				//atacar();
+				//System.out.println("Voy a crear en posicion: x: " +b2body.getPosition().x +" y: " +b2body.getPosition().y);
+
+				screen.crearOndaVital(this);
+
+			}
+		}else
+			System.out.println("Realax que estás muerto...");
 	}
 
+	// Remoto
 	public void movimientoJugador ( int key ) {
-		System.out.println("key: " +key);
-		if ( key == Input.Keys.W  ) { // && jugador.getState() != State.SALTANDO && jugador.getState() != State.CAYENDO
-			saltar();
-		}
-		if (key == Input.Keys.S)
-			b2body.applyLinearImpulse(new Vector2(0, -2.4f), b2body.getWorldCenter(), true);
-		if (key == Input.Keys.D && b2body.getLinearVelocity().x <= 1.5f) {
-			float velX = b2body.getLinearVelocity().x;
-			if ( velX < 0 )
-				b2body.setLinearVelocity(0, b2body.getLinearVelocity().y);
-			b2body.applyForceToCenter(new Vector2(7.5f, 0), true);
-			
-		}
-		if (key == Input.Keys.A && b2body.getLinearVelocity().x >= -1.5f) {
-			float velX = b2body.getLinearVelocity().x;
-			if ( velX > 0 )
-				b2body.setLinearVelocity(0, b2body.getLinearVelocity().y);
-			b2body.applyForceToCenter(new Vector2(-7.5f, 0), true);
-		}
-		
-		if (key == Input.Keys.SPACE) {
-			//atacar();
-			//System.out.println("Voy a crear en posicion: x: " +b2body.getPosition().x +" y: " +b2body.getPosition().y);
-			
-			screen.crearOndaVital(this);
-		
-		}
+		if ( !muerto ) {
+			System.out.println("key: " +key);
+			if ( key == Input.Keys.W  ) { // && jugador.getState() != State.SALTANDO && jugador.getState() != State.CAYENDO
+				saltar();
+			}
+			if (key == Input.Keys.S)
+				b2body.applyLinearImpulse(new Vector2(0, -2.4f), b2body.getWorldCenter(), true);
+			if (key == Input.Keys.D && b2body.getLinearVelocity().x <= 1.5f) {
+				float velX = b2body.getLinearVelocity().x;
+				if ( velX < 0 )
+					b2body.setLinearVelocity(0, b2body.getLinearVelocity().y);
+				b2body.applyForceToCenter(new Vector2(7.5f, 0), true);
+
+			}
+			if (key == Input.Keys.A && b2body.getLinearVelocity().x >= -1.5f) {
+				float velX = b2body.getLinearVelocity().x;
+				if ( velX > 0 )
+					b2body.setLinearVelocity(0, b2body.getLinearVelocity().y);
+				b2body.applyForceToCenter(new Vector2(-7.5f, 0), true);
+			}
+
+			if (key == Input.Keys.SPACE) {
+				//atacar();
+				//System.out.println("Voy a crear en posicion: x: " +b2body.getPosition().x +" y: " +b2body.getPosition().y);
+
+				screen.crearOndaVital(this);
+
+			}
+		}else
+			System.out.println("Realax que estás muerto...");
 	}
 	
 	public void update ( float dt ) {
@@ -186,6 +211,9 @@ public class Jugador extends Sprite {
 			break;
 		case ATACANDO:
 			region = (TextureRegion) jugadorAtacando.getKeyFrame(stateTimer);
+			break;
+		case MUERTO:
+			region = standTexture;
 			break;
 		}
 		
@@ -222,6 +250,9 @@ public class Jugador extends Sprite {
 		case ATACANDO:
 			region = (TextureRegion) jugadorAtacando.getKeyFrame(stateTimer);
 			break;
+		case MUERTO:
+			region = standTexture;
+			break;
 		}
 		
 		
@@ -240,6 +271,8 @@ public class Jugador extends Sprite {
 	}
 	
 	public State getState() {
+		if ( muerto ) 
+			return State.MUERTO;
 		if ( atacando  ) {
 			System.out.println("Aquiiiiiiiiiiiiiiiiiiiiiii" + jugadorAtacando.isAnimationFinished(stateTimer));
 			if ( !jugadorAtacando.isAnimationFinished(stateTimer) )
@@ -317,11 +350,22 @@ public class Jugador extends Sprite {
         //}
 	}
 	
-	public void herir ( Serpiente enemigo) {
-		if ( vida > 0 )
-			vida -= enemigo.DAMAGE;
-		b2body.applyForceToCenter( enemigo.getDireccionDerecha() ? 100f : -100f , 55f, true);
-		System.out.println("Hiriendo");
+	public void herir ( Serpiente enemigo ) {
+		if ( getState() != State.MUERTO ) {
+			vida--;
+			b2body.applyForceToCenter( enemigo.getDireccionDerecha() ? 100f : -100f , 55f, true);
+			// Solo resta corazones si es el server
+			if ( screen.game.isServer && tipoJugador.equals("servidor") ) {
+				// Resta vida del HUD
+				screen.getStats().restarVida();
+			}
+			if ( vida == 0 )
+				muerto = true;
+			System.out.println("Vidas: " +vida);
+		}
+		System.out.println("Estoooooyy");
+		// 
+		
 	}
 	
 	public void atacar() {

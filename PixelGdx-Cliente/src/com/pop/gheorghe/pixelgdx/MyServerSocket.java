@@ -96,7 +96,7 @@ public class MyServerSocket {
 		ObjectOutputStream outStream;
 		try {
 			//System.out.println(client);
-			if( client != null &&  client.getOutputStream()!= null) {
+			if( client != null ) {
 				outStream = new ObjectOutputStream(client.getOutputStream());
 				outStream.writeObject(posicion);
 				//System.out.println("Mandando al cliente");

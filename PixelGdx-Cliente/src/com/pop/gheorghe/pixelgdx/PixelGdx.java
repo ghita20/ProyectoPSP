@@ -27,7 +27,7 @@ public class PixelGdx extends Game {
 	
 	// Masks - colisiones
 	public static final short MASK_JUGADOR = CATEGORIA_ENEMIGO | CATEGORIA_ESCENARIO;
-	public static final short MASK_ENEMIGO = CATEGORIA_JUGADOR | CATEGORIA_ESCENARIO | CATEGORIA_PODERES;
+	public static final short MASK_ENEMIGO = CATEGORIA_JUGADOR | CATEGORIA_ESCENARIO | CATEGORIA_PODERES ;
 	public static final short MASK_PODERES = CATEGORIA_ENEMIGO;
 	public static final short MASK_ESCENEARIO = -1;
 	public static final short MASK_LIMITES = CATEGORIA_ENEMIGO;

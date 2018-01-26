@@ -221,23 +221,18 @@ public abstract class Enemigo extends Sprite{
 		// TODO Auto-generated method stub
 		if ( !destruido ) {
 			super.draw(batch);
-			batch.end();
 			
-			// TODO: Pintar mejor la barra de vida
-			ShapeRenderer sh = new ShapeRenderer();
-			sh.setProjectionMatrix(batch.getProjectionMatrix());
-			sh.begin(ShapeType.Filled);
-			sh.setColor(Color.RED);
-			sh.rect( b2body.getPosition().x - 0.05f  , b2body.getPosition().y +  10 / PixelGdx.PPM, (vida/10 / PixelGdx.PPM), 3 / PixelGdx.PPM);
-			sh.end();
-			
-			batch.begin();
 		
 		}
 	}
-	public void drawBarraVida(SpriteBatch batch) {
+	public void drawBarraVida(ShapeRenderer sh) {
 		// TODO Auto-generated method stub
 		
+		// TODO: Pintar mejor la barra de vida
+		sh.begin(ShapeType.Filled);
+		sh.setColor(Color.MAROON);
+		sh.rect( b2body.getPosition().x - 0.05f  , b2body.getPosition().y -  15 / PixelGdx.PPM, (vida/10 / PixelGdx.PPM), 3 / PixelGdx.PPM);
+		sh.end();
 		
 	}
 	

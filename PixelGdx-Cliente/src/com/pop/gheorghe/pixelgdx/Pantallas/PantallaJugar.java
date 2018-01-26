@@ -14,6 +14,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.PolylineMapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
@@ -47,13 +48,18 @@ import com.pop.gheorghe.pixelgdx.Sprites.OndaVital;
 import com.pop.gheorghe.pixelgdx.Sprites.Serpiente;
 import com.pop.gheorghe.pixelgdx.Tools.WorldContactListener;
 
+import hud.JugadorStats;
+
 public class PantallaJugar implements Screen{
 	// Referencia al juego principal
-	private PixelGdx game;
+	public PixelGdx game;
 	
 	// Game Cam y viewPort
 	private OrthographicCamera gameCam;
 	private Viewport gamePort;
+	
+	// Shape Renderer - para dibujar la vida de los enemigos
+	private ShapeRenderer shapeRenderer;
 	
 	// Tiled Map
 	private TmxMapLoader maploader;
@@ -68,6 +74,7 @@ public class PantallaJugar implements Screen{
 	private Jugador jugadorPrincipal;
 	private Jugador jugadorDos;
 	private TextureAtlas atlas;
+	private JugadorStats jugadorStats;
 	
 	// Serpiete
 	private ArrayList<Serpiente> serpientes;
@@ -87,6 +94,9 @@ public class PantallaJugar implements Screen{
 		
 		// Game Port
 		gamePort = new FitViewport(PixelGdx.WIDTH / PixelGdx.PPM, PixelGdx.HEIGHT / PixelGdx.PPM, gameCam);
+		
+		// Shape Renderer
+		shapeRenderer = new ShapeRenderer();
 		
 		// Carga el mapa
 		maploader = new TmxMapLoader();
@@ -110,12 +120,15 @@ public class PantallaJugar implements Screen{
 
         // Jugador
         if ( game.isServer ) {
-	        jugadorPrincipal = new Jugador(this,"rey",69);
-	        jugadorDos = new Jugador(this,"trebol",1);
+	        jugadorPrincipal = new Jugador(this,"rey",69,"servidor");
+	        jugadorDos = new Jugador(this,"trebol",1,"cliente");
         }else {
-        	jugadorPrincipal = new Jugador(this,"trebol",1);
-	        jugadorDos = new Jugador(this,"rey",69);
+        	jugadorPrincipal = new Jugador(this,"trebol",1,"cliente");
+	        jugadorDos = new Jugador(this,"rey",69,"servidor");
         }
+        
+        // Stats
+        jugadorStats = new JugadorStats(game.batch,jugadorPrincipal);
 
         // Serpiente
         serpientes = new ArrayList<Serpiente>();
@@ -219,7 +232,8 @@ public class PantallaJugar implements Screen{
 	public void handleInput( float dt) {
 		// Movimiento del jugador
 		jugadorPrincipal.movimientoJugador();
-		if ( game.isServer ) {
+		if ( game.isServer ) { // MANDA INFORMACIÓN AL CLIENTE
+			
 			// TODO: Mandar info al cliente de la posicion del jugadorPrincipal
 			Posicion posJugador = new Posicion();
 			posJugador.posicion = jugadorPrincipal.b2body.getTransform().getPosition();
@@ -227,6 +241,9 @@ public class PantallaJugar implements Screen{
 			posJugador.state = jugadorPrincipal.getState();
 			posJugador.stateTime = jugadorPrincipal.stateTimer;
 			posJugador.direccionDerecha = jugadorPrincipal.enDireccionDerecha();
+			
+			// Manda las vidas del jugador Dos
+			posJugador.vidas = jugadorDos.getVida();
 			
 			// TODO: Mandar las ondas vitales
 			posJugador.ondasVitales = new ArrayList<>();
@@ -266,6 +283,7 @@ public class PantallaJugar implements Screen{
 			posJugador.state = jugadorPrincipal.getState();
 			posJugador.stateTime = jugadorPrincipal.stateTimer;
 			posJugador.direccionDerecha = jugadorPrincipal.enDireccionDerecha();
+			
 
 			// TODO: Mandar las ondas vitales
 			posJugador.ondasVitales = new ArrayList<>();
@@ -283,6 +301,10 @@ public class PantallaJugar implements Screen{
 			game.sockClient.mandarInfo(posJugador);
 		}
 		
+	}
+	
+	public JugadorStats getStats ( ) {
+		return jugadorStats;
 	}
 	
 	// Crea una onda vital en el mapa
@@ -311,6 +333,7 @@ public class PantallaJugar implements Screen{
 			if ( game.sock.posicionJugador() != null) {
 				jugadorDos.b2body.setTransform(game.sock.posicionJugador().posicion, game.sock.posicionJugador().angle );
 				TextureRegion textura = jugadorDos.getFrame(delta, game.sock.posicionJugador().state, game.sock.posicionJugador().stateTime , game.sock.posicionJugador().direccionDerecha);
+				
 				jugadorDos.update(delta, textura);
 				
 				// TODO: Leer el estado de las ondas vitales
@@ -331,6 +354,10 @@ public class PantallaJugar implements Screen{
 				jugadorDos.b2body.setTransform(game.sockClient.posicionJugador().posicion, game.sockClient.posicionJugador().angle );
 				TextureRegion textura = jugadorDos.getFrame(delta, game.sockClient.posicionJugador().state, game.sockClient.posicionJugador().stateTime , game.sockClient.posicionJugador().direccionDerecha);
 				jugadorDos.update(delta, textura);
+				
+				// Recojo mis vidas
+				if ( game.sockClient.posicionJugador().vidas != -1)
+					jugadorPrincipal.setVidas(game.sockClient.posicionJugador().vidas);
 				
 				// TODO: Leer el estado de las ondas vitales
 				ArrayList<InfoOndaVital> infoOndas = game.sockClient.posicionJugador().ondasVitales;
@@ -440,6 +467,7 @@ public class PantallaJugar implements Screen{
         
         // TODO: Pinta el player y los enemigos.. 
         game.batch.setProjectionMatrix(gameCam.combined);
+
         game.batch.begin();
         jugadorPrincipal.draw(game.batch);
         jugadorDos.draw(game.batch);
@@ -450,8 +478,13 @@ public class PantallaJugar implements Screen{
 		}
         game.batch.end();
         
+        // Dibuja las barras de vida
+        shapeRenderer.setProjectionMatrix(game.batch.getProjectionMatrix());
         for( Serpiente s : serpientes )
-			s.drawBarraVida(game.batch);
+			s.drawBarraVida(shapeRenderer);
+        
+        // Stats jugador
+        jugadorStats.stage.draw();
 		
 	}
 

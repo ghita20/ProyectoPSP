@@ -2,26 +2,26 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="gdx-1.9.8.jar"/>
-	<classpathentry kind="lib" path="gdx-backend-headless-1.9.8.jar"/>
-	<classpathentry kind="lib" path="gdx-backend-lwjgl-1.9.8.jar"/>
-	<classpathentry kind="lib" path="gdx-backend-robovm-1.9.8.jar"/>
-	<classpathentry kind="lib" path="gdx-box2d-1.9.8.jar"/>
-	<classpathentry kind="lib" path="gdx-box2d-gwt-1.9.8-sources.jar"/>
-	<classpathentry kind="lib" path="gdx-box2d-platform-1.9.8-natives-desktop.jar"/>
-	<classpathentry kind="lib" path="gdx-platform-1.9.8-natives-desktop.jar"/>
-	<classpathentry kind="lib" path="gdx-tools-1.9.8.jar"/>
-	<classpathentry kind="lib" path="jinput-2.0.5.jar"/>
-	<classpathentry kind="lib" path="jinput-platform-2.0.5-natives-linux.jar"/>
-	<classpathentry kind="lib" path="jinput-platform-2.0.5-natives-osx.jar"/>
-	<classpathentry kind="lib" path="jinput-platform-2.0.5-natives-windows.jar"/>
-	<classpathentry kind="lib" path="jlayer-1.0.1-gdx.jar"/>
-	<classpathentry kind="lib" path="jorbis-0.0.17.jar"/>
-	<classpathentry kind="lib" path="jutils-1.0.0.jar"/>
-	<classpathentry kind="lib" path="lwjgl_util-2.9.2.jar"/>
-	<classpathentry kind="lib" path="lwjgl-2.9.2.jar"/>
-	<classpathentry kind="lib" path="lwjgl-platform-2.9.2-natives-linux.jar"/>
-	<classpathentry kind="lib" path="lwjgl-platform-2.9.2-natives-osx.jar"/>
-	<classpathentry kind="lib" path="lwjgl-platform-2.9.2-natives-windows.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Jorge/Documents/Eclipse/PixelGdx-Cliente/gdx-1.9.8.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Jorge/Documents/Eclipse/PixelGdx-Cliente/gdx-backend-headless-1.9.8.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Jorge/Documents/Eclipse/PixelGdx-Cliente/gdx-backend-lwjgl-1.9.8.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Jorge/Documents/Eclipse/PixelGdx-Cliente/gdx-backend-robovm-1.9.8.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Jorge/Documents/Eclipse/PixelGdx-Cliente/gdx-box2d-1.9.8.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Jorge/Documents/Eclipse/PixelGdx-Cliente/gdx-box2d-gwt-1.9.8-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Jorge/Documents/Eclipse/PixelGdx-Cliente/gdx-box2d-platform-1.9.8-natives-desktop.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Jorge/Documents/Eclipse/PixelGdx-Cliente/gdx-platform-1.9.8-natives-desktop.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Jorge/Documents/Eclipse/PixelGdx-Cliente/gdx-tools-1.9.8.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Jorge/Documents/Eclipse/PixelGdx-Cliente/jinput-2.0.5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Jorge/Documents/Eclipse/PixelGdx-Cliente/jinput-platform-2.0.5-natives-linux.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Jorge/Documents/Eclipse/PixelGdx-Cliente/jinput-platform-2.0.5-natives-osx.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Jorge/Documents/Eclipse/PixelGdx-Cliente/jinput-platform-2.0.5-natives-windows.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Jorge/Documents/Eclipse/PixelGdx-Cliente/jlayer-1.0.1-gdx.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Jorge/Documents/Eclipse/PixelGdx-Cliente/jorbis-0.0.17.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Jorge/Documents/Eclipse/PixelGdx-Cliente/jutils-1.0.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Jorge/Documents/Eclipse/PixelGdx-Cliente/lwjgl_util-2.9.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Jorge/Documents/Eclipse/PixelGdx-Cliente/lwjgl-2.9.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Jorge/Documents/Eclipse/PixelGdx-Cliente/lwjgl-platform-2.9.2-natives-linux.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Jorge/Documents/Eclipse/PixelGdx-Cliente/lwjgl-platform-2.9.2-natives-osx.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Jorge/Documents/Eclipse/PixelGdx-Cliente/lwjgl-platform-2.9.2-natives-windows.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
